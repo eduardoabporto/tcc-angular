@@ -11,7 +11,7 @@
           <label>Cliente: </label>
           <select class="form-control">
             <option value="">Selecione...</option>
-            <option *ngFor="let cliente of clientes" [ngValue]="cliente.id" ]>
+            <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
               {{ cliente.nome}}
             </option>
           </select>
