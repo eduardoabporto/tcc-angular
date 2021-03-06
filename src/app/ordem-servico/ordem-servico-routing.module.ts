@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {OrdemServicoFormComponent} from './ordem-servico-form/ordem-servico-form.component';
-import {OrdemServicoListaComponent} from './ordem-servico-lista/ordem-servico-lista.component';
+import { Routes, RouterModule} from '@angular/router';
+import { OrdemServicoFormComponent } from './ordem-servico-form/ordem-servico-form.component';
+import { OrdemServicoListaComponent } from './ordem-servico-lista/ordem-servico-lista.component';
+import { LayoutComponent } from '../layout/layout.component';
 
 const routes: Routes = [
-  { path: 'ordem-servico-form', component: OrdemServicoFormComponent},
-  { path: 'ordem-servico-listagem', component: OrdemServicoListaComponent}
+  { path: 'ordem-servico', component: LayoutComponent, children: [
+      { path: 'form', component: OrdemServicoFormComponent},
+      { path: 'lista', component: OrdemServicoListaComponent},
+      { path: '', redirectTo: '/ordem-servico/lista', pathMatch: 'full'}
+      ]}
 ];
 
 @NgModule({
