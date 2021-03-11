@@ -1,7 +1,8 @@
 import { Cliente } from '../../clientes/cliente';
+import {Projeto} from '../../projeto/Projeto';
 
 export class ordemServicoBusca {
-  assunto: string;
+  projeto: Projeto;
   data: string;
   cliente: Cliente;
 }

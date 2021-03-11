@@ -1,4 +1,4 @@
-<h1 class="mt-4">Clientes</h1>
+<h1 class="mt-4">Empresa</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Consulta</li>
 </ol>
@@ -35,16 +35,16 @@
         </thead>
         <tbody>
         <tr>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nome }}</td>
-          <td>{{ cliente.cnpj }}</td>
-          <td>{{ cliente.dataCadastro }}</td>
+        <tr *ngFor="let empresa of empresa">
+          <td>{{ empresa.id }}</td>
+          <td>{{ empresa.nome }}</td>
+          <td>{{ empresa.cnpj }}</td>
+          <td>{{ empresa.dataCadastro }}</td>
           <td>
-            <button class="btn btn-primary" routerLink="/clientes/form/{{ cliente.id }}">
+            <button class="btn btn-primary" routerLink="/empresa/form/{{ empresa.id }}">
               <i class="fa fa-edit"></i>
             </button>
-            <button class="btn btn-danger" (click)="preparaDelecao(cliente)" data-toggle="modal"
+            <button class="btn btn-danger" (click)="preparaDelecao(empresa)" data-toggle="modal"
                     data-target="#modalDelecao">
               <i class="fa fa-trash"></i>
             </button>
@@ -60,11 +60,11 @@
         <div class="modal-header">
           <h4>Confirmação</h4>
         </div>
-        <div class="modal-body" *ngIf="clientesSelecionado">
-          Confirma a deleção do(a) Cliente {{ clientesSelecionado.nome }}?
+        <div class="modal-body" *ngIf="empresaSelecionada">
+          Confirma a deleção do(a) Empresa {{ empresaSelecionada.nome }}?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletarCliente()" data-dismiss="modal">Confirma</button>
+          <button class="btn btn-success" (click)="deletarEmpresa()" data-dismiss="modal">Confirma</button>
           <button class="btn btn-danger" data-dismiss="modal">Cancela</button>
         </div>
       </div>

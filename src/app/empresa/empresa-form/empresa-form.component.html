@@ -1,30 +1,30 @@
-<h1 class="mt-4">Clientes</h1>
+<h1 class="mt-4">Empresas</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro'}}</li>
+  <li class="breadcrumb-item active">{{ empresa.id ? 'Edição' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
-  <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+  <form #empresaForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert" *ngIf="success == true">
-          Cliente salvo/atualizado com sucesso!
+          Empresa salva/atualizada com sucesso!
         </div>
         <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
           {{erro}}
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="cliente.id">
+    <div class="row" *ngIf="empresa.id">
       <div class="col-md-6">
         <div class="form-group">
           <label>ID:</label>
-          <input type="text" [ngModel]="cliente.id" name="id" class="form-control" disabled="true"/>
+          <input type="text" [ngModel]="empresa.id" name="id" class="form-control" disabled="true"/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Cadastro:</label>
-          <input type="text" class="form-control" name="dataCadastro" [ngModel]="cliente.dataCadastro" disabled="true"/>
+          <input type="text" class="form-control" name="dataCadastro" [ngModel]="empresa.dataCadastro" disabled="true"/>
         </div>
       </div>
     </div>
@@ -33,14 +33,14 @@
         <div class="form-group">
           <label>Nome: *</label>
           <input type="text" class="form-control"
-                 [(ngModel)]="cliente.nome" name="nome"/>
+                 [(ngModel)]="empresa.nome" name="nome"/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Nome Fantasia: *</label>
           <input type="text" class="form-control"
-                 [(ngModel)]="cliente.nomeFantasia" name="nomeFantasia"/>
+                 [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia"/>
         </div>
       </div>
     </div>
@@ -49,23 +49,23 @@
         <div class="form-group">
           <label>CNPJ*:</label>
           <input type="text" mask="CPF_CNPJ" class="form-control"
-                 [(ngModel)]="cliente.cnpj" name="cnpj"/>
+                 [(ngModel)]="empresa.cnpj" name="cnpj"/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>email*:</label>
           <input type="text" class="form-control"
-                 [(ngModel)]="cliente.email" name="email"/>
+                 [(ngModel)]="empresa.email" name="email"/>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-3">
-        <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
+        <button type="submit" class="btn btn-success" *ngIf="!empresa.id">
           <i class="fa fa-save"></i> Salvar
         </button>
-        <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
+        <button type="submit" class="btn btn-primary" *ngIf="empresa.id">
           <i class="fa fa-sync-alt"></i> Atualizar
         </button>
         <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">

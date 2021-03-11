@@ -12,15 +12,6 @@
                id="inputNome">
       </div>
 
-      <div class="col-md-6">
-        <label for="inputMes">Mês:</label>
-        <select [(ngModel)]="mes" class="form-control" name="mes">
-          <option value="">Selecione...</option>
-          <option *ngFor="let mes of meses" [value]="mes">
-            {{ mes }}
-          </option>
-        </select>
-      </div>
     </div>
 
     <br />
@@ -49,20 +40,48 @@
       <table class="table">
         <thead>
         <tr>
+          <th>ID</th>
           <th>Cliente</th>
           <th>Assunto</th>
           <th>Data</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let s of lista" >
-          <td>{{ s.cliente.nome }} </td>
-          <td>{{ s.assunto }} </td>
-          <td>{{ s.data }} </td>
+        <tr *ngFor="let ordemServico of ordemServicos" >
+          <td>{{ ordemServico.id }} </td>
+          <td>{{ ordemServico.idCliente }} </td>
+          <td>{{ ordemServico.assunto }} </td>
+          <td>{{ ordemServico.data }} </td>
+          <td>
+            <button class="btn btn-primary" routerLink="/ordem-servico/form/{{ ordemServico.id }}">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-danger" (click)="preparaDelecao(ordemServico)" data-toggle="modal"
+                    data-target="#modalDelecao">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>
 
+    </div>
+  </div>
+
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+        <div class="modal-body" *ngIf="ordemServicoSelecionado">
+          Confirma a deleção do(a) Ordem de Servico {{ ordemServicoSelecionado.id }}?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deletarOrdemServico()" data-dismiss="modal">Confirma</button>
+          <button class="btn btn-danger" data-dismiss="modal">Cancela</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

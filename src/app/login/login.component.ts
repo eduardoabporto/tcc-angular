@@ -29,7 +29,7 @@ export class LoginComponent  {
         localStorage.setItem('access_token', access_token)
         this.router.navigate(['/home'])
       }, errorResponse => {
-        this.errors = ['UsuÃ¡rio e/ou senha incorreto(s).']
+        this.errors = ['Usuário e/ou senha incorreto(s).']
       })
   }
 

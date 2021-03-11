@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClientesFormComponent } from './clientes-form/clientes-form.component';
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
   imports: [
     CommonModule,
     ClientesRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxMaskModule.forRoot()
   ],exports: [
     ClientesFormComponent,
     ClientesListaComponent

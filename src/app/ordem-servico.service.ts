@@ -4,13 +4,15 @@ import { OrdemServico } from './ordem-servico/OrdemServico';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { ordemServicoBusca } from './ordem-servico/ordem-servico-lista/ordemServicoBusca';
+import {Cliente} from './clientes/cliente';
+import {Projeto} from './projeto/Projeto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdemServicoService {
 
-  apiURL: string =  environment.apiURLBase + '/api/ordens-servicos';
+  apiURL: string =  environment.apiURLBase + '/api/ordem-servico';
 
   constructor(private http: HttpClient) { }
 
@@ -18,14 +20,29 @@ export class OrdemServicoService {
     return this.http.post<OrdemServico>(this.apiURL, ordemServico);
   }
 
-  buscar(nome: string, mes: number): Observable<ordemServicoBusca[]>{
+  buscar(nome: string): Observable<ordemServicoBusca[]>{
 
     const httpParams = new HttpParams()
       .set('nome', nome)
-      .set('mes', mes ?  mes.toString() : '');
 
     const url = this.apiURL + '?' + httpParams.toString();
     return this.http.get<any>(url);
+  }
+
+  atualizar(ordemServico: OrdemServico): Observable<any> {
+    return this.http.put<OrdemServico>(`${this.apiURL}/${ordemServico.id}`, ordemServico);
+  }
+
+  getOrdemServico(): Observable<OrdemServico[]> {
+    return this.http.get<OrdemServico[]>(this.apiURL);
+  }
+
+  getOrdemServicoById(id: number): Observable<OrdemServico> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
+
+  deletar(ordemServico: OrdemServico): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${ordemServico.id}`);
   }
 
 }
