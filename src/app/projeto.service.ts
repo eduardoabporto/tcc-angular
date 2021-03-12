@@ -4,6 +4,8 @@ import { Projeto } from './projeto/Projeto';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { projetoBusca } from './projeto/projeto-lista/projetoBusca';
+import {Recurso} from './recurso/recurso';
+import {OrdemServico} from './ordem-servico/OrdemServico';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,9 @@ export class ProjetoService {
     return this.http.post<Projeto>(this.apiURL, projeto);
   }
 
+  atualizar(projeto: Projeto): Observable<any> {
+    return this.http.put<Projeto>(`${this.apiURL}/${projeto.id}`, projeto);
+  }
   buscar(nome: string): Observable<projetoBusca[]>{
 
     const httpParams = new HttpParams()
@@ -34,10 +39,17 @@ export class ProjetoService {
     return this.http.get<any>(url);
   }
 
+  getProjetoById(id: number): Observable<Projeto> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
+
   getProjeto(): Observable<Projeto[]> {
     return this.http.get<Projeto[]>(this.apiURL);
   }
 
+  deletar(projeto: Projeto): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${projeto.id}`);
+  }
 }
 
 

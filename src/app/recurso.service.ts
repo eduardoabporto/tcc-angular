@@ -27,7 +27,7 @@ export class RecursoService {
     return this.http.get<Recurso[]>(this.apiURL);
   }
 
-  getClienteById(id: number): Observable<Recurso> {
+  getRecursoById(id: number): Observable<Recurso> {
     return this.http.get<any>(`${this.apiURL}/${id}`);
   }
 

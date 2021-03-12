@@ -41,7 +41,7 @@
           <td>{{ recurso.cpf }}</td>
           <td>{{ recurso.dataCadastro }}</td>
           <td>
-            <button class="btn btn-primary" routerLink="/clientes/form/{{ recurso.id }}">
+            <button class="btn btn-primary" routerLink="/recurso/form/{{ recurso.id }}">
               <i class="fa fa-edit"></i>
             </button>
             <button class="btn btn-danger" (click)="preparaDelecao(recurso)" data-toggle="modal"
@@ -64,7 +64,7 @@
           Confirma a deleção do(a) Cliente {{ recursoSelecionado.nome }}?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletarCliente()" data-dismiss="modal">Confirma</button>
+          <button class="btn btn-success" (click)="deletarRecurso()" data-dismiss="modal">Confirma</button>
           <button class="btn btn-danger" data-dismiss="modal">Cancela</button>
         </div>
       </div>

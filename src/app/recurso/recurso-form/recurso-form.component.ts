@@ -31,7 +31,7 @@ export class RecursoFormComponent implements OnInit {
       this.id = urlParams['id'];
       if(this.id) {
         this.service
-          .getClienteById(this.id)
+          .getRecursoById(this.id)
           .subscribe(response => this.recurso = response,
             errorResponse => this.recurso = new Recurso())
       }

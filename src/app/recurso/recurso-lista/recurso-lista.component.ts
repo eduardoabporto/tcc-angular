@@ -34,7 +34,7 @@ export class RecursoListaComponent implements OnInit {
     this.recursoSelecionado = recurso;
   }
 
-  deletarCliente(){
+  deletarRecurso(){
     this.service
       .deletar(this.recursoSelecionado)
       .subscribe(

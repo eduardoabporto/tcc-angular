@@ -3,6 +3,9 @@ import { Cliente } from '../../clientes/cliente';
 import { ClientesService } from '../../clientes.service';
 import { Projeto } from '../Projeto';
 import { ProjetoService } from '../../projeto.service';
+import {OrdemServico} from '../../ordem-servico/OrdemServico';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -13,34 +16,49 @@ import { ProjetoService } from '../../projeto.service';
 export class ProjetoFormComponent implements OnInit {
 
   clientes: Cliente[] = []
-  projeto: Projeto
+  projeto: Projeto[] = []
+  projetoSelecionado: Projeto;
   success: boolean = false
   errors: String[];
+  id: number;
 
   constructor(
     private clienteService: ClientesService,
-    private projetoService: ProjetoService
-  ){
-    this.projeto = new Projeto();
+    private projetoService: ProjetoService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.projetoSelecionado = new Projeto();
   }
 
   ngOnInit(): void {
-    this.clienteService
-      .getClientes()
-      .subscribe( response => this.clientes = response);
+    let params: Observable<Params> = this.activatedRoute.params;
+    params.subscribe(urlParams => {
+      this.id = urlParams['id']
+      if (this.id) {
+        this.projetoService
+          .getProjetoById(this.id)
+          .subscribe(response => this.projetoSelecionado = response,
+            errorResponse => this.projetoSelecionado = new Projeto());
+      } else {
+        this.clienteService
+          .getClientes()
+          .subscribe(response => this.clientes = response);
+      }
+    });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.projetoService
-      .salvar( this.projeto)
+      .salvar(this.projetoSelecionado)
       .subscribe(response => {
           this.success = true;
           this.errors = null;
-          this.projeto = response;
+          this.projetoSelecionado = new Projeto();
         },
         errorResponse => {
           this.success = false;
           this.errors = errorResponse.error.errors;
-        })
+        });
   }
+
 }

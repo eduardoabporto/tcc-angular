@@ -1,10 +1,9 @@
 <h1 class="mt-4" xmlns="http://www.w3.org/1999/html">Projeto</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-bitem active">Novo</li>
+  <li class="breadcrumb-item active">{{ projetoSelecionado.id ? 'Edição' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
   <form #form="ngForm" (submit)="onSubmit()">
-
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert" *ngIf="success == true">
@@ -22,7 +21,7 @@
           <label>Cliente: </label>
           <select class="form-control"
                   [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="projeto.idCliente">
+                  [(ngModel)]="projetoSelecionado.idCliente">
             <option value="">Selecione...</option>
             <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
               {{ cliente.nome}}
@@ -37,18 +36,18 @@
         <div class="form-group">
           <label for="">Nome</label>
           <input class="form-control"
-                 [(ngModel)]="projeto.nome" type="text"
+                 [(ngModel)]="projetoSelecionado.nome" type="text"
                  name="nome" id="inputNome">
         </div>
       </div>
     </div>
 
-     <div class="row">
+    <div class="row">
       <div class="col-md-3">
         <div class="form-group">
           <label for="">Data</label>
           <input class="form-control"
-                 [(ngModel)]="projeto.data" type="date"
+                 [(ngModel)]="projetoSelecionado.data" type="date"
                  name="data" id="inputData">
         </div>
       </div>
@@ -57,41 +56,43 @@
         <div class="form-group">
           <label for="">Horas Traslado</label>
           <input class="form-control"
-                 [(ngModel)]="projeto.horaTrasl" type="time"
+                 [(ngModel)]="projetoSelecionado.horaTrasl" type="time"
                  name="horaTrasl" id="inputHoraTrasl">
         </div>
       </div>
 
-       <div class="col-md-3">
-         <div class="form-group">
-           <label for="">Horas Desconto</label>
-           <input class="form-control"
-                  [(ngModel)]="projeto.horaDesc" type="time"
-                  name="horaDescb" id="inputHoraDesc">
-         </div>
-       </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="">Horas Desconto</label>
+          <input class="form-control"
+                 [(ngModel)]="projetoSelecionado.horaDesc" type="time"
+                 name="horaDescb" id="inputHoraDesc">
+        </div>
+      </div>
 
-       <div class="col-md-6">
-         <div class="form-group">
-           <label>Valor Hora:</label>
-           <input class="form-control"
-                  [(ngModel)]="projeto.valorHora" type="number"
-                  name="valor" id="inputValorHora">
-         </div>
-       </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Valor Hora:</label>
+          <input class="form-control"
+                 [(ngModel)]="projetoSelecionado.valorHora" type="number"
+                 name="valor" id="inputValorHora">
+        </div>
+      </div>
 
     </div>
 
-      <div class="row">
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-success">
-            <i class="fa fa-save"></i>
-            Salvar
-          </button>
-          <button type="button" routerLink="/ordem-servico/lista" class="btn btn-danger ml-1" >
-            <i class="fa fa-arrow-alt-circle-left"></i> Voltar
-          </button>
-        </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-save"></i> Salvar
+        </button>
+        <button type="submit" class="btn btn-primary" *ngIf="projetoSelecionado.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+        <button type="button" routerLink="/projeto/lista" class="btn btn-danger ml-1">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
       </div>
+    </div>
   </form>
 </div>
