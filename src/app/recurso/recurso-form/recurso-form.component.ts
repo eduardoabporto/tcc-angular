@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
-import { Cliente } from '../cliente';
-import { ClientesService } from '../../clientes.service';
-import { Observable } from 'rxjs';
+import { Recurso} from '../recurso';
+import { RecursoService } from '../../recurso.service';
+import { Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-clientes-form',
-  templateUrl: './clientes-form.component.html',
-  styleUrls: ['./clientes-form.component.css']
+  selector: 'app-recurso-form',
+  templateUrl: './recurso-form.component.html',
+  styleUrls: ['./recurso-form.component.css']
 })
-export class ClientesFormComponent implements OnInit {
+export class RecursoFormComponent implements OnInit {
 
-  cliente: Cliente;
+  recurso: Recurso;
   success: boolean = false;
   errors: String[];
   id: number;
 
   constructor(
-    private service: ClientesService ,
+    private service: RecursoService ,
     private router: Router,
     private activatedRoute: ActivatedRoute
    ) {
-    this.cliente = new Cliente();
+    this.recurso = new Recurso();
   }
 
   ngOnInit(): void {
@@ -32,32 +32,32 @@ export class ClientesFormComponent implements OnInit {
       if(this.id) {
         this.service
           .getClienteById(this.id)
-          .subscribe(response => this.cliente = response,
-            errorResponse => this.cliente = new Cliente())
+          .subscribe(response => this.recurso = response,
+            errorResponse => this.recurso = new Recurso())
       }
     })
   }
 
   voltarParaListagem() {
-    this.router.navigate(['/clientes/lista']);
+    this.router.navigate(['/recurso/lista']);
   }
   onSubmit(){
     if(this.id){
       this.service
-        .atualizar(this.cliente)
+        .atualizar(this.recurso)
         .subscribe(response => {
           this.success = true;
           this.errors = null;
           }, errorResponse => {
-          this.errors = ['Erro ao atualizar o cliente.']
+          this.errors = ['Erro ao atualizar o recurso.']
         })
     }else {
       this.service
-        .salvar(this.cliente)
+        .salvar(this.recurso)
         .subscribe(response => {
             this.success = true;
             this.errors = null;
-            this.cliente = response;
+            this.recurso = response;
           },
           errorResponse => {
             this.success = false;

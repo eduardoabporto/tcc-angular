@@ -4,6 +4,7 @@ import { OrdemServicoService } from '../../ordem-servico.service';
 import {OrdemServico} from '../OrdemServico';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-ordem-servico-lista',
   templateUrl: './ordem-servico-lista.component.html',

@@ -22,7 +22,7 @@ export class EmpresaListaComponent implements OnInit {
 
   ngOnInit(): void {
     this.service
-      .getClientes()
+      .getEmpresa()
       .subscribe( resposta => this.empresa = resposta);
   }
 

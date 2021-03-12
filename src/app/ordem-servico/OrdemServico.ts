@@ -1,3 +1,7 @@
+import {Empresa} from '../empresa/empresa';
+import {Cliente} from '../clientes/cliente';
+import {Projeto} from '../projeto/Projeto';
+
 export class OrdemServico{
   id: number;
   assunto:string;
@@ -9,7 +13,11 @@ export class OrdemServico{
   horaTrasl:string;
   horaDesc:string;
   idEmpresa:number;
-  idCliente:number;
   idProjeto:number;
+  idCliente:number;
+  idRecurso:number;
+  empresa: Empresa;
+  cliente: Cliente;
+  projeto: Projeto;
 }
 

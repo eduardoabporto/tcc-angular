@@ -36,7 +36,7 @@ export class ProjetoFormComponent implements OnInit {
       .subscribe(response => {
           this.success = true;
           this.errors = null;
-          this.projeto = new Projeto();
+          this.projeto = response;
         },
         errorResponse => {
           this.success = false;

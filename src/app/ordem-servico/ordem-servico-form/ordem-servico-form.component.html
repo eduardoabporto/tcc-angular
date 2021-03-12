@@ -1,8 +1,37 @@
 <h1 class="mt-4" xmlns="http://www.w3.org/1999/html">Ordem Serviço</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-bitem active">Novo</li>
+  <li class="breadcrumb-item active">{{ servico.id ? 'Edição' : 'Cadastro'}}</li>
 </ol>
+<script>
+  function calcDiff(date1, date2) {
+    var d1 = date1.split(' ')[0]; // Data 1
+    var t1 = date1.split(' ')[1]; // Tempo data 1
 
+    var d2 = date2.split(' ')[0]; // Data 2
+    var t2 = date2.split(' ')[1]; // Tempo data 2
+
+    // Converte cada um para datetime
+    d1 = new Date(d1.split('/')[0], d1.split('/')[1], d1.split('/')[2], t1.split(':')[0], t1.split(':')[1]);
+    d2 = new Date(d2.split('/')[0], d2.split('/')[1], d2.split('/')[2], t2.split(':')[0], t2.split(':')[1]);
+
+    // Diferença entre os datetimes
+    var diffMs = (d2 - d1);
+
+    // Calcula diferença de hrs em ms
+    var diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+
+    // Calcula diferença de mins em ms
+    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+    // Concatena
+    var diff = diffHrs + ':' + diffMins;
+    console.log(diff);
+  }
+
+  var date1 = "1900/01/01 11:20";
+  var date2 = "1900/01/01 16:40";
+  calcDiff(date1, date2); // Output: 5:20
+</script>
 <div class="container">
   <form #form="ngForm" (submit)="onSubmit()">
 
@@ -17,50 +46,83 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <label>Empresa: </label>
-          <select class="form-control"
-                  [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="servico.idEmpresa">
-            <option value="">Selecione...</option>
-            <option *ngFor="let empresa of empresa" [ngValue]="empresa.id">
-              {{ empresa.nome}}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label>Cliente: </label>
-          <select class="form-control"
-                  [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="servico.idCliente"
-                  (change)= "consultarProjeto(servico.idCliente)">
-            <option value="">Selecione...</option>
-            <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
-              {{ cliente.nome}}
+    <div *ngIf="servico.id; then thenBlock else elseBlock"></div>
 
-            </option>
-          </select>
+    <ng-template #thenBlock>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Empresa: </label>
+            <input class="form-control"
+                   [(ngModel)]="servico.empresa.nome" type="text"
+                   name="empresa" id="inputEmpresa" disabled="true">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Cliente: </label>
+            <input class="form-control"
+                   [(ngModel)]="servico.cliente.nome" type="text"
+                   name="cliente" id="inputCliente" disabled="true">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Projeto: </label>
+            <input class="form-control"
+                   [(ngModel)]="servico.projeto.nome" type="text"
+                   name="projeto" id="inputProjeto" disabled="true">
+          </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label>Projeto: </label>
-          <select
+     </ng-template>
+    <ng-template #elseBlock>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Empresa: </label>
+            <select class="form-control"
+                    [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="servico.idEmpresa">
+              <option value="">Selecione...</option>
+              <option *ngFor="let empresa of empresa" [ngValue]="empresa.id">
+                {{ empresa.nome}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Cliente: </label>
+            <select class="form-control"
+                    [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="servico.idCliente"
+                    (change)="consultarProjeto(servico.idCliente)">
+              <option value="">Selecione...</option>
+              <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
+                {{ cliente.nome}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Projeto: </label>
+            <select
               class="form-control"
-                  [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="servico.idProjeto">
-            <option value="">Selecione...</option>
-            <option *ngFor="let projeto of projeto" [ngValue]="projeto.id" >
-              {{ projeto.nome}}
-            </option>
-          </select>
+              [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="servico.idProjeto">
+              <option value="">Selecione...</option>
+              <option *ngFor="let projeto of projeto" [ngValue]="projeto.id">
+                {{ projeto.nome}}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
+
+    </ng-template>
 
     <div class="row">
       <div class="col-md-12">
@@ -75,7 +137,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div  class="form-group">
+        <div class="form-group">
           <label for="">Descrição</label>
           <textarea class="form-control"
                     [(ngModel)]="servico.descricao" type="text"
@@ -91,7 +153,7 @@
           <label for="">Data</label>
           <input class="form-control"
                  [(ngModel)]="servico.data" type="date"
-                 name="data" id="inputData">
+                 name="data" id="inputData" >
         </div>
       </div>
 
@@ -109,6 +171,7 @@
           <label for="">Hora Final</label>
           <input class="form-control"
                  [(ngModel)]="servico.horaFinal" type="time"
+                 (change)="calcDiff(servico.horaInicial,servico.horaFinal)"
                  name="horaFinal" id="inputHoraFinal">
         </div>
       </div>
@@ -117,7 +180,7 @@
         <div class="form-group">
           <label for="">Horas trabalhadas</label>
           <input readonly class="form-control"
-                 [(ngModel)]="servico.horaTrab" type="time"
+                 [(ngModel)]="servico.horaFinal" type="time"
                  name="horaTrab" id="inputHoraTrab">
         </div>
       </div>
@@ -147,16 +210,16 @@
         </div>
       </div>
     </div>
-      <div class="row">
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-success">
-            <i class="fa fa-save"></i>
-            Salvar
-          </button>
-          <button type="button" routerLink="/ordem-servico/lista" class="btn btn-danger ml-1" >
-            <i class="fa fa-arrow-alt-circle-left"></i> Voltar
-          </button>
-        </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-save"></i>
+          Salvar
+        </button>
+        <button type="button" routerLink="/ordem-servico/lista" class="btn btn-danger ml-1">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
       </div>
+    </div>
   </form>
 </div>

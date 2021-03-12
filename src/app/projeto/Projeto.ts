@@ -1,3 +1,5 @@
+import {Cliente} from '../clientes/cliente';
+
 export class Projeto {
   id: number;
   nome:string;
@@ -6,5 +8,6 @@ export class Projeto {
   horaDesc:string;
   valorHora:string;
   idCliente:number;
+  cliente: Cliente;
 }
 

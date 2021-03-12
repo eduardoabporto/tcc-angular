@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { ClientesModule } from './clientes/clientes.module';
 import { ClientesService } from './clientes.service';
+import { RecursoModule } from './recurso/recurso.module';
+import { RecursoService } from './recurso.service';
 import { EmpresaModule } from './empresa/empresa.module';
 import { EmpresaService } from './empresa.service';
 import { OrdemServicoModule } from './ordem-servico/ordem-servico.module';
@@ -21,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthService} from './auth.service';
 import { TokenInterceptor} from './token.interceptor'
+import {Recurso} from './recurso/recurso';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { TokenInterceptor} from './token.interceptor'
     TemplateModule,
     AppRoutingModule,
     ClientesModule,
+    RecursoModule,
     EmpresaModule,
     RouterModule,
     OrdemServicoModule,
@@ -43,6 +47,7 @@ import { TokenInterceptor} from './token.interceptor'
   ],
   providers: [
     ClientesService,
+    RecursoService,
     EmpresaService,
     OrdemServicoService,
     ProjetoService,
