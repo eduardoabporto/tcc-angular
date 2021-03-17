@@ -24,6 +24,11 @@ import { LayoutComponent } from './layout/layout.component';
 import { AuthService} from './auth.service';
 import { TokenInterceptor} from './token.interceptor'
 import {Recurso} from './recurso/recurso';
+import {UsuarioModule} from './usuario/usuario.module';
+import {UsuarioService} from './usuario.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ import {Recurso} from './recurso/recurso';
     EmpresaModule,
     RouterModule,
     OrdemServicoModule,
-    ProjetoModule
+    UsuarioModule,
+    ProjetoModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
+    OrderModule,
   ],
   providers: [
     ClientesService,
@@ -51,6 +60,7 @@ import {Recurso} from './recurso/recurso';
     EmpresaService,
     OrdemServicoService,
     ProjetoService,
+    UsuarioService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

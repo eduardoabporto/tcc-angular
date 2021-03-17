@@ -2,36 +2,6 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">{{ servico.id ? 'Edição' : 'Cadastro'}}</li>
 </ol>
-<script>
-  function calcDiff(date1, date2) {
-    var d1 = date1.split(' ')[0]; // Data 1
-    var t1 = date1.split(' ')[1]; // Tempo data 1
-
-    var d2 = date2.split(' ')[0]; // Data 2
-    var t2 = date2.split(' ')[1]; // Tempo data 2
-
-    // Converte cada um para datetime
-    d1 = new Date(d1.split('/')[0], d1.split('/')[1], d1.split('/')[2], t1.split(':')[0], t1.split(':')[1]);
-    d2 = new Date(d2.split('/')[0], d2.split('/')[1], d2.split('/')[2], t2.split(':')[0], t2.split(':')[1]);
-
-    // Diferença entre os datetimes
-    var diffMs = (d2 - d1);
-
-    // Calcula diferença de hrs em ms
-    var diffHrs = Math.floor((diffMs % 86400000) / 3600000);
-
-    // Calcula diferença de mins em ms
-    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-
-    // Concatena
-    var diff = diffHrs + ':' + diffMins;
-    console.log(diff);
-  }
-
-  var date1 = "1900/01/01 11:20";
-  var date2 = "1900/01/01 16:40";
-  calcDiff(date1, date2); // Output: 5:20
-</script>
 <div class="container">
   <form #form="ngForm" (submit)="onSubmit()">
 
@@ -76,7 +46,7 @@
           </div>
         </div>
       </div>
-     </ng-template>
+    </ng-template>
     <ng-template #elseBlock>
       <div class="row">
         <div class="col-md-12">
@@ -114,7 +84,7 @@
               [ngModelOptions]="{standalone: true}"
               [(ngModel)]="servico.idProjeto">
               <option value="">Selecione...</option>
-              <option *ngFor="let projeto of projeto" [ngValue]="projeto.id">
+              <option *ngFor="let projeto of projetos" [ngValue]="projeto.id">
                 {{ projeto.nome}}
               </option>
             </select>
@@ -161,7 +131,8 @@
         <div class="form-group">
           <label for="">Hora Inicial</label>
           <input class="form-control"
-                 [(ngModel)]="servico.horaInicial" type="time"
+                 [(ngModel)]="servico.horaInicial"
+                 type="time"
                  name="horaInicial" id="inputHoraInicial">
         </div>
       </div>
@@ -171,8 +142,26 @@
           <label for="">Hora Final</label>
           <input class="form-control"
                  [(ngModel)]="servico.horaFinal" type="time"
-                 (change)="calcDiff(servico.horaInicial,servico.horaFinal)"
+                 (ngModelChange)="consultarHorasProjeto(servico.idProjeto)"
                  name="horaFinal" id="inputHoraFinal">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="">Hora Traslado</label>
+          <input readonly class="form-control"
+                 [(ngModel)]="servico.horaTrasl" type="time"
+                 name="horaTrasl" id="inputHoraTrasl">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="">Hora Desconto</label>
+          <input readonly class="form-control"
+                 [(ngModel)]="servico.horaDesc" type="time"
+                 name="horaDesc" id="inputHoraDesc">
         </div>
       </div>
 
@@ -180,8 +169,17 @@
         <div class="form-group">
           <label for="">Horas trabalhadas</label>
           <input readonly class="form-control"
-                 [(ngModel)]="servico.horaFinal" type="time"
+                 [(ngModel)]="servico.horaTrab" type="time"
                  name="horaTrab" id="inputHoraTrab">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="">Usuário</label>
+          <input readonly class="form-control"
+                 [(ngModel)]="servico.userLog" type="text"
+                 name="userLog" id="inputUserLog">
         </div>
       </div>
 

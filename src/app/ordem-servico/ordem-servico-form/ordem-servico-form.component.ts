@@ -9,6 +9,12 @@ import {Observable} from 'rxjs';
 import {ActivatedRoute, Params} from '@angular/router';
 import {EmpresaService} from '../../empresa.service';
 import {Empresa} from '../../empresa/empresa';
+import {AuthService} from '../../auth.service';
+import {Usuario} from '../../login/usuario';
+import {UsuarioService} from '../../usuario.service';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import * as moment from 'moment';
+import {projetoBusca} from '../../projeto/projeto-lista/projetoBusca';
 
 @Component({
   selector: 'app-ordem-servico-form',
@@ -17,26 +23,34 @@ import {Empresa} from '../../empresa/empresa';
 })
 export class OrdemServicoFormComponent implements OnInit {
 
+  usuarioLogado: string;
 
   empresa: Empresa[] = [];
   clientes: Cliente[] = [];
-  projeto: Projeto[] = [];
+  projetos: Projeto[] = [];
+  horaProjeto: Projeto[] = [];
+  usuario: Usuario[] = [];
   servico: OrdemServico;
   success: boolean = false;
   errors: String[];
   id: number;
 
   constructor(
+    private authService: AuthService,
     private empresaService: EmpresaService,
     private clienteService: ClientesService,
     private ordemService: OrdemServicoService,
     private projetoService: ProjetoService,
-    private activatedRoute: ActivatedRoute
+    private usuarioService: UsuarioService,
+    private activatedRoute: ActivatedRoute,
+
   ) {
     this.servico = new OrdemServico();
-  }
+    }
 
   ngOnInit(): void {
+    this.servico.userLog = this.authService.getUsuarioAutenticado();
+    this.usuarioLogado = this.authService.getUsuarioAutenticado();
     let params: Observable<Params> = this.activatedRoute.params;
     params.subscribe(urlParams => {
       this.id = urlParams['id']
@@ -47,59 +61,72 @@ export class OrdemServicoFormComponent implements OnInit {
             errorResponse => this.servico = new OrdemServico());
       } else {
         this.empresaService
-          .getEmpresa()
+          .getEmpresas()
           .subscribe(response => this.empresa = response);
         this.clienteService
           .getClientes()
           .subscribe(response => this.clientes = response);
-
       }
     });
+  }
+
+
+  calcDif(){
+    let dif1 = moment(this.servico.horaFinal, 'HH:mm').diff(moment(this.servico.horaInicial, 'HH:mm'), 'minutes');
+    let dif2 = moment(this.servico.horaTrasl, 'HH:mm').diff(moment(this.servico.horaDesc, 'HH:mm'), 'minutes');
+    let dif3 = dif1 + dif2;
+    this.servico.horaTrab = moment('00:00', 'HH:mm').add(dif3, 'minutes').format('HH:mm');
   }
 
   consultarProjeto(idCliente: number){
     this.projetoService
       .getProjetoClienteById(this.servico.idCliente)
-      .subscribe(response => this.projeto = response);
+      .subscribe(response =>{ this.projetos = response});
   }
 
-  onSubmit() {
-    this.ordemService
-      .salvar(this.servico)
+  consultarHorasProjeto(idProjeto: number) {
+    console.log(idProjeto);
+    console.log(this.servico.idProjeto);
+    this.projetoService
+      .getHoraProjetoById(idProjeto)
       .subscribe(response => {
+        this.projetos = response
+      });
+
+    var qtdeDesc = this.projetos.map(function(item, indice: 0) {
+      return item.horaDesc
+    });
+    var qtdeTrasl = this.projetos.map(function(item, indice: 0) {
+      return item.horaTrasl
+    });
+
+    this.servico.horaDesc = qtdeDesc.toString();
+    this.servico.horaTrasl = qtdeTrasl.toString();
+    this.calcDif();
+  }
+
+  onSubmit()  {
+    if(this.id){
+      this.ordemService
+        .atualizar(this.servico)
+        .subscribe(response => {
           this.success = true;
           this.errors = null;
-          this.servico = new OrdemServico();
-        },
-        errorResponse => {
-          this.success = false;
-          this.errors = errorResponse.error.errors;
-        });
+        }, errorResponse => {
+          this.errors = ['Erro ao atualizar o empresa.']
+        })
+    }else {
+      this.ordemService
+        .salvar(this.servico)
+        .subscribe(response => {
+            this.success = true;
+            this.errors = null;
+            this.servico = new OrdemServico();
+          },
+          errorResponse => {
+            this.success = false;
+            this.errors = errorResponse.error.errors;
+          });
+    }
   }
-
-  calcDiff(date1, date2) {
-    var d1 = date1.split(' ')[0]; // Data 1
-    var t1 = date1.split(' ')[1]; // Tempo data 1
-
-    var d2 = date2.split(' ')[0]; // Data 2
-    var t2 = date2.split(' ')[1]; // Tempo data 2
-
-    // Converte cada um para datetime
-    d1 = new Date(d1.split('/')[0], d1.split('/')[1], d1.split('/')[2], t1.split(':')[0], t1.split(':')[1]);
-    d2 = new Date(d2.split('/')[0], d2.split('/')[1], d2.split('/')[2], t2.split(':')[0], t2.split(':')[1]);
-
-    // Diferença entre os datetimes
-    var diffMs = (d2 - d1);
-
-    // Calcula diferença de hrs em ms
-    var diffHrs = Math.floor((diffMs % 86400000) / 3600000);
-
-    // Calcula diferença de mins em ms
-    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-
-    // Concatena
-    var diff = diffHrs + ':' + diffMins;
-    console.log(diff);
-  }
-
 }

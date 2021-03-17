@@ -3,7 +3,7 @@ import { Cliente } from '../../clientes/cliente';
 import { ClientesService } from '../../clientes.service';
 import { Projeto } from '../Projeto';
 import { ProjetoService } from '../../projeto.service';
-import {OrdemServico} from '../../ordem-servico/OrdemServico';
+import { OrdemServico } from '../../ordem-servico/OrdemServico';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs';
 
@@ -48,6 +48,16 @@ export class ProjetoFormComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.id){
+      this.projetoService
+        .atualizar(this.projetoSelecionado)
+        .subscribe(response => {
+          this.success = true;
+          this.errors = null;
+        }, errorResponse => {
+          this.errors = ['Erro ao atualizar o empresa.']
+        })
+    }else {
     this.projetoService
       .salvar(this.projetoSelecionado)
       .subscribe(response => {
@@ -60,5 +70,5 @@ export class ProjetoFormComponent implements OnInit {
           this.errors = errorResponse.error.errors;
         });
   }
-
+  }
 }

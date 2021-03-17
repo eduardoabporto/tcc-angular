@@ -22,7 +22,7 @@ export class EmpresaService {
     return this.http.put<Empresa>(`${this.apiURL}/${empresa.id}`, empresa);
   }
 
-  getEmpresa(): Observable<Empresa[]> {
+  getEmpresas(): Observable<Empresa[]> {
     return this.http.get<Empresa[]>(this.apiURL);
   }
 

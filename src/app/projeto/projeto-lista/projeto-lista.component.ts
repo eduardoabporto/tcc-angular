@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { projetoBusca} from './projetoBusca';
 import { ProjetoService } from '../../projeto.service';
 import { Projeto } from '../Projeto';
-import {Cliente} from '../../clientes/cliente';
-import {OrdemServicoService} from '../../ordem-servico.service';
-import {Router} from '@angular/router';
-import {OrdemServico} from '../../ordem-servico/OrdemServico';
-import {ordemServicoBusca} from '../../ordem-servico/ordem-servico-lista/ordemServicoBusca';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projeto-lista',
@@ -15,6 +11,8 @@ import {ordemServicoBusca} from '../../ordem-servico/ordem-servico-lista/ordemSe
 })
 export class ProjetoListaComponent implements OnInit {
 
+  public paginaAtual = 1;
+
   nome: string;
   projetos: Projeto[] = [];
   projetoSelecionado: Projeto;
@@ -22,6 +20,14 @@ export class ProjetoListaComponent implements OnInit {
   message: string;
   mensagemSucesso: String;
   mensagemErro: String;
+
+  // Configuração da ordenação
+  key: string = ''; // Define um valor padrão, para quando inicializar o componente
+  reverse: boolean = false;
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
   constructor(
     private projetoService: ProjetoService,

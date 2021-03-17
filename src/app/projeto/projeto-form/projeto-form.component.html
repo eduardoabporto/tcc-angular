@@ -15,6 +15,23 @@
       </div>
     </div>
 
+    <div *ngIf="projetoSelecionado.id; then thenBlock else elseBlock"></div>
+
+    <ng-template #thenBlock>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Cliente: </label>
+            <input class="form-control"
+                   [(ngModel)]="projetoSelecionado.cliente.nome" type="text"
+                   name="cliente" id="inputCliente" >
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
+    <ng-template #elseBlock>
+
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -31,6 +48,7 @@
       </div>
     </div>
 
+    </ng-template>
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -48,7 +66,7 @@
           <label for="">Data</label>
           <input class="form-control"
                  [(ngModel)]="projetoSelecionado.data" type="date"
-                 name="data" id="inputData">
+                 name="data" id="inputData" >
         </div>
       </div>
 
@@ -83,7 +101,7 @@
 
     <div class="row">
       <div class="col-md-3">
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success"*ngIf="!projetoSelecionado.id">
           <i class="fa fa-save"></i> Salvar
         </button>
         <button type="submit" class="btn btn-primary" *ngIf="projetoSelecionado.id">

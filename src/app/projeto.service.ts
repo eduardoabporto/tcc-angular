@@ -39,6 +39,13 @@ export class ProjetoService {
     return this.http.get<any>(url);
   }
 
+  getHoraProjetoById(numProjeto: number): Observable<any> {
+    const httpParams = new HttpParams()
+      .set('numProjeto', String(numProjeto));
+    const url = this.apiURL + '/hora-projeto/' + '?' + httpParams;
+    return this.http.get<any>(url);
+  }
+
   getProjetoById(id: number): Observable<Projeto> {
     return this.http.get<any>(`${this.apiURL}/${id}`);
   }

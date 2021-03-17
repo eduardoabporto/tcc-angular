@@ -18,10 +18,6 @@
 
     <div class="row">
       <div class="col-md-4">
-        <button type="submit" class="btn btn-primary">
-          <i class="fa fa-search"></i> Consultar
-        </button>
-
         <button type="button"
                 routerLink="/ordem-servico/form"
                 class="btn btn-warning ml-1">
@@ -40,14 +36,20 @@
       <table class="table">
         <thead>
         <tr>
-          <th>ID</th>
-          <th>Cliente</th>
+          <th (click)="sort('ID')">
+            ID
+            <span *ngIf="key =='ID'">{{reverse ? '▲' : '▼'}}</span>
+          </th>
+          <th (click)="sort('Cliente')">
+            Cliente
+            <span *ngIf="key =='Cliente'">{{reverse ? '▲' : '▼'}}</span>
+          </th>
           <th>Assunto</th>
           <th>Data</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ordemServico of ordemServicos" >
+        <tr *ngFor="let ordemServico of ordemServicos | orderBy: key : reverse | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index" >
           <td>{{ ordemServico.id }} </td>
           <td>{{ ordemServico.cliente.nome }} </td>
           <td>{{ ordemServico.assunto }} </td>
@@ -63,6 +65,7 @@
           </td>
         </tr>
         </tbody>
+        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
       </table>
 
     </div>

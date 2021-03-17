@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ordemServicoBusca} from './ordemServicoBusca';
 import { OrdemServicoService } from '../../ordem-servico.service';
-import {OrdemServico} from '../OrdemServico';
+import { OrdemServico} from '../OrdemServico';
 import {Router} from '@angular/router';
 
 
@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 })
 export class OrdemServicoListaComponent implements OnInit {
 
+  public paginaAtual = 1;
   nome: string;
   ordemServicos: OrdemServico[] = [];
   ordemServicoSelecionado: OrdemServico;
@@ -19,6 +20,14 @@ export class OrdemServicoListaComponent implements OnInit {
   message: string;
   mensagemSucesso: String;
   mensagemErro: String;
+
+  // Configuração da ordenação
+  key: string = ''; // Define um valor padrão, para quando inicializar o componente
+  reverse: boolean = false;
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
   constructor(
     private ordemServicoService: OrdemServicoService,
@@ -28,6 +37,7 @@ export class OrdemServicoListaComponent implements OnInit {
     this.ordemServicoService
       .getOrdemServico()
       .subscribe( resposta => this.ordemServicos = resposta);
+
   }
 
   preparaDelecao(ordemServico: OrdemServico){

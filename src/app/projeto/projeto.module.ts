@@ -6,6 +6,9 @@ import { ProjetoFormComponent } from './projeto-form/projeto-form.component';
 import { ProjetoListaComponent } from './projeto-lista/projeto-lista.component';
 import { RouterModule } from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {OrderModule} from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [ProjetoFormComponent, ProjetoListaComponent],
@@ -13,7 +16,10 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     ProjetoRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
+    OrderModule
   ], exports: [ProjetoFormComponent, ProjetoListaComponent]
 })
 export class ProjetoModule { }

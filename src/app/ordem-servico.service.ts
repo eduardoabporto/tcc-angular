@@ -17,14 +17,13 @@ export class OrdemServicoService {
   constructor(private http: HttpClient) { }
 
   salvar(ordemServico: OrdemServico): Observable<OrdemServico>{
+    console.log(ordemServico);
     return this.http.post<OrdemServico>(this.apiURL, ordemServico);
   }
 
   buscar(nome: string): Observable<ordemServicoBusca[]>{
-
     const httpParams = new HttpParams()
       .set('nome', nome)
-
     const url = this.apiURL + '?' + httpParams.toString();
     return this.http.get<any>(url);
   }
