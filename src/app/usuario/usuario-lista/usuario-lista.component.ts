@@ -56,4 +56,8 @@ export class UsuarioListaComponent implements OnInit {
           this.mensagemErro = 'Ocorreu ao deletar o usuario.')
   }
 
+  imprimeRelatorio(){
+    return this.service.downloadPdfRelatorio();
+  }
+
 }

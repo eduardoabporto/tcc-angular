@@ -44,6 +44,11 @@ export class OrdemServicoService {
     return this.http.delete<any>(`${this.apiURL}/${ordemServico.id}`);
   }
 
+  downloadPdfRelatorio(){
+    return this.http.get(this.apiURL + '/relatorio', {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }
 
 

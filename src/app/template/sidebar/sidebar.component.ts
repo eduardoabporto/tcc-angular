@@ -25,4 +25,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
+  imprimeRelatorio(){
+    return this.authService.downloadPdfRelatorio();
+  }
 }

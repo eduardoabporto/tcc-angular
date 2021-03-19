@@ -71,4 +71,9 @@ export class AuthService {
 
     return this.http.post( this.tokenURL, params.toString(), { headers });
   }
+  downloadPdfRelatorio(){
+    return this.http.get(this.apiURL + '/relatorio/minhas-oss', {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }

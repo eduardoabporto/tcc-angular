@@ -33,4 +33,10 @@ export class ClientesService {
   deletar(cliente: Cliente): Observable<any> {
     return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
   }
+
+  downloadPdfRelatorio(){
+    return this.http.get(this.apiURL + '/relatorio', {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }

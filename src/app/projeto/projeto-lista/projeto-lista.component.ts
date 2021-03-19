@@ -66,4 +66,8 @@ export class ProjetoListaComponent implements OnInit {
         }
       });
   }
+
+  imprimeRelatorio(){
+    return this.projetoService.downloadPdfRelatorio();
+  }
 }

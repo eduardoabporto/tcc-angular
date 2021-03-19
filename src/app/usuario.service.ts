@@ -39,4 +39,10 @@ export class UsuarioService {
     return this.http.delete<any>(`${this.apiURL}/${usuario.id}`);
   }
 
+  downloadPdfRelatorio(){
+    return this.http.get(this.apiURL + '/relatorio', {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
+
 }

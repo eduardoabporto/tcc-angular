@@ -44,4 +44,9 @@ export class ClientesListaComponent implements OnInit {
         erro =>
           this.mensagemErro = 'Ocorreu ao deletar o cliente.')
   }
+
+  imprimeRelatorio(){
+    return this.service.downloadPdfRelatorio();
+  }
+
 }

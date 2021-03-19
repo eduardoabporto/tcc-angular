@@ -34,4 +34,10 @@ export class EmpresaService {
   deletar(empresa: Empresa): Observable<any> {
     return this.http.delete<any>(`${this.apiURL}/${empresa.id}`);
   }
+
+  downloadPdfRelatorio(){
+    return this.http.get(this.apiURL + '/relatorio', {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }

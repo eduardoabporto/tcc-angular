@@ -44,4 +44,8 @@ export class EmpresaListaComponent implements OnInit {
         erro =>
           this.mensagemErro = 'Ocorreu ao deletar a empresa.')
   }
+
+  imprimeRelatorio(){
+    return this.service.downloadPdfRelatorio();
+  }
 }

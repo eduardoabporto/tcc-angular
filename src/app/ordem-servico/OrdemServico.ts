@@ -17,6 +17,7 @@ export class OrdemServico{
   idCliente: number;
   idProjeto: number;
   userLog: string;
+  atendimento: string;
   empresa: Empresa;
   cliente: Cliente;
   projeto: Projeto;

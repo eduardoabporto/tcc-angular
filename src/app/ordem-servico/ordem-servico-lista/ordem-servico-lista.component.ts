@@ -3,7 +3,7 @@ import { ordemServicoBusca} from './ordemServicoBusca';
 import { OrdemServicoService } from '../../ordem-servico.service';
 import { OrdemServico} from '../OrdemServico';
 import {Router} from '@angular/router';
-
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-ordem-servico-lista',
@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./ordem-servico-lista.component.css']
 })
 export class OrdemServicoListaComponent implements OnInit {
+
+  usuarioLogado: string;
 
   public paginaAtual = 1;
   nome: string;
@@ -22,7 +24,7 @@ export class OrdemServicoListaComponent implements OnInit {
   mensagemErro: String;
 
   // Configuração da ordenação
-  key: string = ''; // Define um valor padrão, para quando inicializar o componente
+  key: string = 'ID'; // Define um valor padrão, para quando inicializar o componente
   reverse: boolean = false;
   sort(key) {
     this.key = key;
@@ -30,10 +32,13 @@ export class OrdemServicoListaComponent implements OnInit {
   }
 
   constructor(
+    private authService: AuthService,
     private ordemServicoService: OrdemServicoService,
-    private router: Router)  {}
+    private router: Router,
+  )  {}
 
   ngOnInit(): void {
+    this.usuarioLogado = this.authService.getUsuarioAutenticado();
     this.ordemServicoService
       .getOrdemServico()
       .subscribe( resposta => this.ordemServicos = resposta);
@@ -66,5 +71,13 @@ export class OrdemServicoListaComponent implements OnInit {
           this.message = null;
         }
       });
+  }
+
+  imprimeRelatorio(){
+    return this.ordemServicoService.downloadPdfRelatorio();
+  }
+
+  filterItemsOfType(){
+    return this.ordemServicos.filter(x => x.userLog == this.usuarioLogado);
   }
 }
