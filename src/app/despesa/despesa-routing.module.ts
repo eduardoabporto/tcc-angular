@@ -5,6 +5,7 @@ import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard} from '../auth.guard';
 import {DespesaListaComponent} from './despesa-lista/despesa-lista.component';
 import {DespesaFormComponent} from './despesa-form/despesa-form.component';
+import {DespesaFormReadComponent} from './despesa-form/despesa-form-read.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,8 @@ const routes: Routes = [
     children: [
       { path: 'form', component: DespesaFormComponent},
       { path: 'form/:id' , component: DespesaFormComponent},
+      { path: 'form/read', component: DespesaFormReadComponent},
+      { path: 'form/read/:id' , component: DespesaFormReadComponent},
       { path: 'lista', component: DespesaListaComponent},
       { path: '', redirectTo: '/despesa/lista', pathMatch: 'full'}
       ]}

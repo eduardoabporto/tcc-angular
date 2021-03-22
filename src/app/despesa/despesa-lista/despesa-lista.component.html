@@ -33,26 +33,25 @@
       <table class="table">
         <thead>
         <tr>
-          <th (click)="sort('ID')">
-            ID
-            <span *ngIf="key =='ID'">{{reverse ? '▲' : '▼'}}</span>
-          </th>
-          <th (click)="sort('Cliente')">
-            Cliente
-            <span *ngIf="key =='Cliente'">{{reverse ? '▲' : '▼'}}</span>
-          </th>
-          <th>Assunto</th>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Projeto</th>
+          <th>Despesa</th>
           <th>Data</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let despesa of filterItemsOfType() | orderBy: key : reverse | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let id = index" >
+        <tr *ngFor="let despesa of filterItemsOfType() | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }" >
           <td>{{ despesa.id }} </td>
           <td>{{ despesa.cliente.nome }} </td>
-          <td>{{ despesa.assunto }} </td>
+          <td>{{ despesa.projeto.nome }} </td>
+          <td>{{ despesa.tipoDespesa.nome }} </td>
           <td>{{ despesa.data }} </td>
           <td>
-            <button class="btn btn-primary" routerLink="/despesa/form/{{ despesa.id }}">
+            <button class="btn btn-info"  routerLink="/despesa/form/read/{{ despesa.id }}">
+              <i class="fas fa-search"></i>
+            </button>
+            <button class="btn btn-primary"  routerLink="/despesa/form/{{ despesa.id }}">
               <i class="fa fa-edit"></i>
             </button>
             <button class="btn btn-danger" (click)="preparaDelecao(despesa)" data-toggle="modal"

@@ -22,6 +22,7 @@ export class DespesaListaComponent implements OnInit {
   message: string;
   mensagemSucesso: String;
   mensagemErro: String;
+  botaoClicado: String;
 
   // Configuração da ordenação
   key: string = 'ID'; // Define um valor padrão, para quando inicializar o componente
@@ -79,5 +80,9 @@ export class DespesaListaComponent implements OnInit {
 
   filterItemsOfType(){
     return this.despesa.filter(x => x.userLog == this.usuarioLogado);
+  }
+
+  but_no(value) {
+    return this.botaoClicado = value;
   }
 }

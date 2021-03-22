@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Empresa} from './empresa/empresa';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
+import {empresaBusca} from './empresa/empresa-lista/empresaBusca';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,15 @@ export class EmpresaService {
 
   atualizar(empresa: Empresa): Observable<any> {
     return this.http.put<Empresa>(`${this.apiURL}/${empresa.id}`, empresa);
+  }
+
+  buscar(nome: string): Observable<empresaBusca[]>{
+
+    const httpParams = new HttpParams()
+      .set('nome', nome);
+
+    const url = this.apiURL + '?' + httpParams.toString();
+    return this.http.get<any>(url);
   }
 
   getEmpresas(): Observable<Empresa[]> {

@@ -4,7 +4,7 @@ import { ProjetoFormComponent } from './projeto-form/projeto-form.component';
 import { ProjetoListaComponent } from './projeto-lista/projeto-lista.component';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard} from '../auth.guard';
-import {RecursoFormComponent} from '../recurso/recurso-form/recurso-form.component';
+
 
 const routes: Routes = [
   { path: 'projeto', component: LayoutComponent, canActivate:[AuthGuard], children: [

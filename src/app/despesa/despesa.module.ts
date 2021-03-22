@@ -10,10 +10,11 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
 import {DespesaRoutingModule} from './despesa-routing.module';
+import {DespesaFormReadComponent} from './despesa-form/despesa-form-read.component';
 
 
 @NgModule({
-  declarations: [DespesaFormComponent, DespesaListaComponent],
+  declarations: [DespesaFormComponent, DespesaFormReadComponent, DespesaListaComponent],
   imports: [
     CommonModule,
     DespesaRoutingModule,
@@ -23,6 +24,6 @@ import {DespesaRoutingModule} from './despesa-routing.module';
     NgxPaginationModule,
     OrderModule,
     ReactiveFormsModule
-  ], exports: [DespesaFormComponent, DespesaListaComponent]
+  ], exports: [DespesaFormComponent, DespesaFormReadComponent, DespesaListaComponent]
 })
 export class DespesaModule { }

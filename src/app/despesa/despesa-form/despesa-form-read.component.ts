@@ -16,11 +16,11 @@ import {TipoDespesa} from '../../tipo-despesa/TipoDespesa';
 import {TipoDespesaService} from '../../tipo-despesa.service';
 
 @Component({
-  selector: 'app-despesa-form',
-  templateUrl: './despesa-form.component.html',
-  styleUrls: ['./despesa-form.component.css']
+  selector: 'app-despesa-form-read',
+  templateUrl: './despesa-form-read.component.html',
+  styleUrls: ['./despesa-form-read.component.css']
 })
-export class DespesaFormComponent implements OnInit {
+export class DespesaFormReadComponent implements OnInit {
 
   usuarioLogado: string;
 

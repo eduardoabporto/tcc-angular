@@ -11,11 +11,8 @@
                name="nome" class="form-control"
                id="inputNome">
       </div>
-
     </div>
-
-    <br />
-
+    <br/>
     <div class="row">
       <div class="col-md-4">
         <button type="button"
@@ -23,14 +20,15 @@
                 class="btn btn-warning ml-1">
           <i class="fa fa-plus"></i> Novo
         </button>
-        <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 5px">
+        <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                style="margin-left: 5px">
           PDF
         </button>
       </div>
     </div>
   </form>
 
-  <br />
+  <br/>
   <div class="row">
     <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
       {{ mensagemSucesso }}
@@ -42,24 +40,18 @@
       <table class="table">
         <thead>
         <tr>
-          <th (click)="sort('ID')">
-            ID
-            <span *ngIf="key =='ID'">{{reverse ? '▲' : '▼'}}</span>
-          </th>
-          <th (click)="sort('Cliente')">
-            Cliente
-            <span *ngIf="key =='Cliente'">{{reverse ? '▲' : '▼'}}</span>
-          </th>
+          <th>ID</th>
+          <th>Cliente</th>
           <th>Projeto</th>
           <th>Data</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let projeto of projetos | orderBy: key : reverse | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index" >
+        <tr *ngFor="let projeto of projetos | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }">
           <td>{{ projeto.id }} </td>
           <td>{{ projeto.cliente.nome }} </td>
           <td>{{ projeto.nome }} </td>
-          <td>{{ projeto.data }} </td>
+          <td>{{ projeto.data | date: 'dd/MM/yyyy'}} </td>
           <td>
             <button class="btn btn-primary" routerLink="/projeto/form/{{ projeto.id }}">
               <i class="fa fa-edit"></i>
@@ -71,7 +63,8 @@
           </td>
         </tr>
         </tbody>
-        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior"
+                             nextLabel="Próximo"></pagination-controls>
       </table>
 
     </div>

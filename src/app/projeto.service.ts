@@ -4,8 +4,7 @@ import { Projeto } from './projeto/Projeto';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { projetoBusca } from './projeto/projeto-lista/projetoBusca';
-import {Recurso} from './recurso/recurso';
-import {OrdemServico} from './ordem-servico/OrdemServico';
+
 
 @Injectable({
   providedIn: 'root'

@@ -3,8 +3,30 @@
   <li class="breadcrumb-item active">Consulta</li>
 </ol>
 <div class="container">
+  <form #consultaForm="ngForm" (submit)="consultar()">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="inputNome">Nome Cliente:</label>
+        <input type="text" [(ngModel)]="nome"
+               name="nome" class="form-control"
+               id="inputNome">
+      </div>
+    </div>
+      <br/>
+    <div class="row">
+        <div class="col-md-2">
+          <button class="btn btn-warning" (click)="novoCadastro()">
+            <i class="fa fa-plus"></i> Novo
+          </button>
+          <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                  style="margin-left: 5px">
+            PDF
+          </button>
+        </div>
+      </div>
+  </form>
+  <br/>
   <div class="row">
-
     <div class="col-md-12">
       <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
         {{ mensagemSucesso }}
@@ -13,18 +35,6 @@
         {{ mensagemErro }}
       </div>
     </div>
-
-    <div class="col-md-2">
-      <button class="btn btn-warning" (click)="novoCadastro()">
-        <i class="fa fa-plus"></i> Novo
-      </button>
-      <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 5px">
-        PDF
-      </button>
-    </div>
-  </div>
-  <br/>
-  <div class="row">
     <div class="col-md-12">
       <table class="table table-condensed table-hover">
         <thead>
@@ -38,12 +48,15 @@
         </thead>
         <tbody>
         <tr>
-        <tr *ngFor="let empresa of empresa">
+        <tr *ngFor="let empresa of empresa | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }">
           <td>{{ empresa.id }}</td>
           <td>{{ empresa.nome }}</td>
-          <td>{{ empresa.cnpj }}</td>
-          <td>{{ empresa.dataCadastro }}</td>
+          <td>{{ empresa.cnpj | cnpj}}</td>
+          <td>{{ empresa.dataCadastro | date: 'dd/MM/yyyy' }}</td>
           <td>
+            <button class="btn btn-info" routerLink="/empresa/form/read/{{ empresa.id }}">
+              <i class="fas fa-search"></i>
+            </button>
             <button class="btn btn-primary" routerLink="/empresa/form/{{ empresa.id }}">
               <i class="fa fa-edit"></i>
             </button>

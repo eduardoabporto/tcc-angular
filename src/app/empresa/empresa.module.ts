@@ -6,20 +6,30 @@ import { EmpresaRoutingModule } from './empresa-routing.module';
 import { EmpresaFormComponent } from './empresa-form/empresa-form.component';
 import { EmpresaListaComponent } from './empresa-lista/empresa-lista.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { CnpjPipe } from '../cnpj.pipe';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {EmpresaFormReadComponent} from './empresa-form/empresa-form-read.component';
 
 @NgModule({
   declarations: [
     EmpresaFormComponent,
-    EmpresaListaComponent
+    EmpresaFormReadComponent,
+    EmpresaListaComponent,
+    CnpjPipe
   ],
   imports: [
     CommonModule,
     EmpresaRoutingModule,
     FormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ], exports: [
     EmpresaFormComponent,
-    EmpresaListaComponent
+    EmpresaFormReadComponent,
+    EmpresaListaComponent,
+    CnpjPipe
   ]
 })
 export class EmpresaModule { }

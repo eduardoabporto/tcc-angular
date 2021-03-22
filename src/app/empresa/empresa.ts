@@ -12,6 +12,6 @@ export class Empresa {
   cep: string;
   bairro:string;
   cidade:string;
-  uf: string;
+  estado: string;
   dataCadastro: string;
 }

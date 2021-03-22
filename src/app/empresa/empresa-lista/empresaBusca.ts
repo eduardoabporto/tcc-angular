@@ -1,4 +1,4 @@
-export class Cliente {
+export class empresaBusca {
   id: number;
   nome: string;
   nomeFantasia: string;
