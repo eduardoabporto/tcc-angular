@@ -29,6 +29,10 @@ import {UsuarioService} from './usuario.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
+import {TipoDespesaModule} from './tipo-despesa/tipo-despesa.module';
+import {TipoDespesaService} from './tipo-despesa.service';
+import {DespesaModule} from './despesa/despesa.module';
+import {DespesaService} from './despesa.service';
 
 @NgModule({
   declarations: [
@@ -46,10 +50,12 @@ import { OrderModule } from 'ngx-order-pipe';
     ClientesModule,
     RecursoModule,
     EmpresaModule,
+    TipoDespesaModule,
     RouterModule,
     OrdemServicoModule,
     UsuarioModule,
     ProjetoModule,
+    DespesaModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     OrderModule,
@@ -58,9 +64,11 @@ import { OrderModule } from 'ngx-order-pipe';
     ClientesService,
     RecursoService,
     EmpresaService,
+    TipoDespesaService,
     OrdemServicoService,
     ProjetoService,
     UsuarioService,
+    DespesaService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

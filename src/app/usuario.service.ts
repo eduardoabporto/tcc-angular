@@ -29,12 +29,13 @@ export class UsuarioService {
     return this.http.get<any>(`${this.apiURL}/${id}`);
   }
 
-  getUsuarioByUser(nomeUser: string): Observable<any> {
+    getUsuarioByUser(nomeUser: string): Observable<any> {
     const httpParams = new HttpParams()
       .set('nomeUser', nomeUser);
     const url = this.apiURL + '/form/' + '?' + httpParams;
     return this.http.get<any>(url);
-  }
+ }
+
     deletar(usuario: Usuario): Observable<any> {
     return this.http.delete<any>(`${this.apiURL}/${usuario.id}`);
   }
