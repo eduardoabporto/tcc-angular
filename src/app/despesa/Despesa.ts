@@ -20,6 +20,7 @@ export class Despesa{
   cliente: Cliente;
   projeto: Projeto;
   tipoDespesa: TipoDespesa;
+  aprovacao: string;
 
 }
 

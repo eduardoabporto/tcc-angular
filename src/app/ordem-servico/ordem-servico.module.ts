@@ -9,9 +9,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
+import {OrdemServicoFormReadComponent} from './ordem-servico-form/ordem-servico-form-read.component';
 
 @NgModule({
-  declarations: [OrdemServicoFormComponent, OrdemServicoListaComponent],
+  declarations: [OrdemServicoFormComponent, OrdemServicoFormReadComponent, OrdemServicoListaComponent],
   imports: [
     CommonModule,
     OrdemServicoRoutingModule,
@@ -21,6 +22,6 @@ import {OrderModule} from 'ngx-order-pipe';
     NgxPaginationModule,
     OrderModule,
     ReactiveFormsModule
-  ], exports: [OrdemServicoFormComponent, OrdemServicoListaComponent]
+  ], exports: [OrdemServicoFormComponent, OrdemServicoFormReadComponent, OrdemServicoListaComponent]
 })
 export class OrdemServicoModule { }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import {TipoDespesa} from '../TipoDespesa';
 import {TipoDespesaService} from '../../tipo-despesa.service';
+import {tipoDespesaBusca} from './tipoDespesaBusca';
 
 @Component({
   selector: 'app-tipo-despesa-lista',
@@ -11,10 +12,15 @@ import {TipoDespesaService} from '../../tipo-despesa.service';
 })
 export class TipoDespesaListaComponent implements OnInit {
 
+  public paginaAtual = 1;
+
+  nome: string;
   tipoDespesa: TipoDespesa[] = [];
   tipoDespesaSelecionada: TipoDespesa;
   mensagemSucesso: String;
   mensagemErro: String;
+  message: string;
+  listaTipo: tipoDespesaBusca[];
 
   constructor(
     private tipoDespesaservice: TipoDespesaService,
@@ -43,6 +49,19 @@ export class TipoDespesaListaComponent implements OnInit {
           this.ngOnInit()},
         erro =>
           this.mensagemErro = 'Ocorreu ao deletar o tipo despesa.')
+  }
+
+  consultar(){
+    this.tipoDespesaservice
+      .buscar(this.nome)
+      .subscribe(response => {
+        this.listaTipo = response;
+        if(this.listaTipo.length <= 0 ){
+          this.message = "Nenhum Registro encontrado.";
+        }else{
+          this.message = null;
+        }
+      });
   }
 
   imprimeRelatorio(){

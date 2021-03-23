@@ -46,7 +46,7 @@
           <td>{{ despesa.cliente.nome }} </td>
           <td>{{ despesa.projeto.nome }} </td>
           <td>{{ despesa.tipoDespesa.nome }} </td>
-          <td>{{ despesa.data }} </td>
+          <td>{{ despesa.data | date: 'dd/MM/yyyy'}} </td>
           <td>
             <button class="btn btn-info"  routerLink="/despesa/form/read/{{ despesa.id }}">
               <i class="fas fa-search"></i>

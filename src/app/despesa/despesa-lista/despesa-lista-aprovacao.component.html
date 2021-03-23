@@ -1,9 +1,9 @@
-<h1 class="mt-4">Ordem Serviço</h1>
+<h1 class="mt-4">Despesas</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrum-bitem active">Consulta</li>
+  <li class="breadcrum-bitem active">Aprovação</li>
 </ol>
 <div class="container">
-  <form #consultaForm="ngForm" (submit)="consultar()">
+  <form #FormListaAprov="ngForm" (submit)="consultar()">
     <div class="row">
       <div class="col-md-6">
         <label for="inputNome">Nome Cliente:</label>
@@ -15,11 +15,6 @@
     <br />
     <div class="row">
       <div class="col-md-4">
-        <button type="button"
-                routerLink="/ordem-servico/form"
-                class="btn btn-warning ml-1">
-          <i class="fa fa-plus"></i> Novo
-        </button>
         <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 5px">
           PDF
         </button>
@@ -35,26 +30,23 @@
         <tr>
           <th>ID</th>
           <th>Cliente</th>
-          <th>Assunto</th>
+          <th>Projeto</th>
+          <th>Despesa</th>
           <th>Data</th>
+          <th>Aprovado</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ordemServico of filterItemsOfType() | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let id = index" >
-          <td>{{ ordemServico.id }} </td>
-          <td>{{ ordemServico.cliente.nome }} </td>
-          <td>{{ ordemServico.assunto }} </td>
-          <td>{{ ordemServico.data | date: 'dd/MM/yyyy'}} </td>
+        <tr *ngFor="let despesa of filterItemsOfType() | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }" >
+          <td>{{ despesa.id }} </td>
+          <td>{{ despesa.cliente.nome }} </td>
+          <td>{{ despesa.projeto.nome }} </td>
+          <td>{{ despesa.tipoDespesa.nome }} </td>
+          <td>{{ despesa.data | date: 'dd/MM/yyyy'}} </td>
+          <td>{{ despesa.aprovacao}}</td>
           <td>
-            <button class="btn btn-info"  routerLink="/ordem-servico/form/read/{{ ordemServico.id }}">
+            <button class="btn btn-info"  routerLink="/despesa/form/aprovacao/{{ despesa.id }}">
               <i class="fas fa-search"></i>
-            </button>
-            <button class="btn btn-primary" routerLink="/ordem-servico/form/{{ ordemServico.id }}">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button class="btn btn-danger" (click)="preparaDelecao(ordemServico)" data-toggle="modal"
-                    data-target="#modalDelecao">
-              <i class="fa fa-trash"></i>
             </button>
           </td>
         </tr>
@@ -71,11 +63,11 @@
         <div class="modal-header">
           <h4>Confirmação</h4>
         </div>
-        <div class="modal-body" *ngIf="ordemServicoSelecionado">
-          Confirma a deleção do(a) Ordem de Servico {{ ordemServicoSelecionado.id }}?
+        <div class="modal-body" *ngIf="despesaSelecionado">
+          Confirma a deleção do(a) Despesa {{ despesaSelecionado.id }}?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletarOrdemServico()" data-dismiss="modal">Confirma</button>
+          <button class="btn btn-success" (click)="deletarDespesa()" data-dismiss="modal">Confirma</button>
           <button class="btn btn-danger" data-dismiss="modal">Cancela</button>
         </div>
       </div>

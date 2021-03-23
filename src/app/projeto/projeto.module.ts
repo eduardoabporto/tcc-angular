@@ -9,9 +9,10 @@ import {FormsModule} from '@angular/forms';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
+import {ProjetoFormReadComponent} from './projeto-form/projeto-form-read.component';
 
 @NgModule({
-  declarations: [ProjetoFormComponent, ProjetoListaComponent],
+  declarations: [ProjetoFormComponent, ProjetoFormReadComponent, ProjetoListaComponent],
   imports: [
     CommonModule,
     ProjetoRoutingModule,
@@ -20,6 +21,6 @@ import {OrderModule} from 'ngx-order-pipe';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     OrderModule
-  ], exports: [ProjetoFormComponent, ProjetoListaComponent]
+  ], exports: [ProjetoFormComponent, ProjetoFormReadComponent, ProjetoListaComponent]
 })
 export class ProjetoModule { }

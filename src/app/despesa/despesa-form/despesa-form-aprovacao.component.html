@@ -3,7 +3,18 @@
   <li class="breadcrumb-item active">{{ despesaSelecionada.id ? 'Consulta' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
-  <form #formRead="ngForm" (submit)="onSubmit()">
+  <form #formAprovacao="ngForm" (submit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Despesa aprovada com sucesso!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+          {{erro}}
+        </div>
+      </div>
+    </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -38,6 +49,14 @@
                    name="tipoDespesa" id="inputTipoDespesa" >
           </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Data</label>
+            <input  readonly class="form-control"
+                    [(ngModel)]="despesaSelecionada.data" type="date"
+                    name="data" id="inputData" >
+          </div>
+        </div>
       </div>
 
     <div class="row">
@@ -53,21 +72,21 @@
 
 
     <div class="row">
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="">Data</label>
-          <input  readonly class="form-control"
-                 [(ngModel)]="despesaSelecionada.data" type="date"
-                 name="data" id="inputData" >
-        </div>
-      </div>
-
       <div class="col-md-6">
         <div class="form-group">
           <label>Valor Hora:</label>
           <input  readonly class="form-control"
                  [(ngModel)]="despesaSelecionada.valorDespesa" type="number"
                  name="valor" id="inputValorHora">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="">Aprovado</label>
+          <input  readonly class="form-control"
+                  [(ngModel)]="despesaSelecionada.aprovacao" type="text"
+                  name="aprovacao" id="inputAprovacao" >
         </div>
       </div>
 
@@ -113,7 +132,11 @@
 
     <div class="row">
       <div class="col-md-3">
-        <button type="button" routerLink="/despesa/lista" class="btn btn-danger ml-1">
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-save"></i>
+          Aprovar
+        </button>
+        <button type="button" routerLink="/despesa/lista/aprovacao" class="btn btn-danger ml-1">
           <i class="fa fa-arrow-alt-circle-left"></i> Voltar
         </button>
       </div>

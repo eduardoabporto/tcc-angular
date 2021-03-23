@@ -11,10 +11,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
 import {DespesaRoutingModule} from './despesa-routing.module';
 import {DespesaFormReadComponent} from './despesa-form/despesa-form-read.component';
+import {DespesaFormAprovacaoComponent} from './despesa-form/despesa-form-aprovacao.component';
+import {DespesaListaAprovacaoComponent} from './despesa-lista/despesa-lista-aprovacao.component';
 
 
 @NgModule({
-  declarations: [DespesaFormComponent, DespesaFormReadComponent, DespesaListaComponent],
+  declarations: [DespesaFormComponent, DespesaFormReadComponent, DespesaFormAprovacaoComponent, DespesaListaComponent, DespesaListaAprovacaoComponent],
   imports: [
     CommonModule,
     DespesaRoutingModule,
@@ -24,6 +26,6 @@ import {DespesaFormReadComponent} from './despesa-form/despesa-form-read.compone
     NgxPaginationModule,
     OrderModule,
     ReactiveFormsModule
-  ], exports: [DespesaFormComponent, DespesaFormReadComponent, DespesaListaComponent]
+  ], exports: [DespesaFormComponent, DespesaFormReadComponent, DespesaFormAprovacaoComponent, DespesaListaComponent, DespesaListaAprovacaoComponent]
 })
 export class DespesaModule { }

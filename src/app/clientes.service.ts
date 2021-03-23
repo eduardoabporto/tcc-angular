@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Cliente} from './clientes/cliente';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
+import {empresaBusca} from './empresa/empresa-lista/empresaBusca';
+import {clientesBusca} from './clientes/clientes-lista/clientesBusca';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,15 @@ export class ClientesService {
 
   deletar(cliente: Cliente): Observable<any> {
     return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
+  }
+
+  buscar(nome: string): Observable<clientesBusca[]>{
+
+    const httpParams = new HttpParams()
+      .set('nome', nome);
+
+    const url = this.apiURL + '?' + httpParams.toString();
+    return this.http.get<any>(url);
   }
 
   downloadPdfRelatorio(){

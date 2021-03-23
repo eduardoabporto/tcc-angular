@@ -53,6 +53,9 @@
           <td>{{ projeto.nome }} </td>
           <td>{{ projeto.data | date: 'dd/MM/yyyy'}} </td>
           <td>
+            <button class="btn btn-info" routerLink="/projeto/form/read/{{ projeto.id }}">
+              <i class="fas fa-search"></i>
+            </button>
             <button class="btn btn-primary" routerLink="/projeto/form/{{ projeto.id }}">
               <i class="fa fa-edit"></i>
             </button>

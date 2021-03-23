@@ -6,11 +6,11 @@ import {despesaBusca} from './despesa';
 import {DespesaService} from '../../despesa.service';
 
 @Component({
-  selector: 'app-despesa-lista',
-  templateUrl: './despesa-lista.component.html',
-  styleUrls: ['./despesa-lista.component.css']
+  selector: 'app-despesa-lista-aprovacao',
+  templateUrl: './despesa-lista-aprovacao.component.html',
+  styleUrls: ['./despesa-lista-aprovacao.component.css']
 })
-export class DespesaListaComponent implements OnInit {
+export class DespesaListaAprovacaoComponent implements OnInit {
 
   usuarioLogado: string;
 

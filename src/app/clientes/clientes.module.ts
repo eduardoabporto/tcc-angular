@@ -8,6 +8,8 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
 import { NgxMaskModule } from 'ngx-mask';
 import { EmpresaModule} from '../empresa/empresa.module';
 import { ClientesFormReadComponent } from './clientes-form/clientes-form-read.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { ClientesFormReadComponent } from './clientes-form/clientes-form-read.co
     ClientesFormReadComponent,
     ClientesListaComponent
   ],
-    imports: [
-        CommonModule,
-        ClientesRoutingModule,
-        FormsModule,
-        NgxMaskModule.forRoot(),
-        EmpresaModule
-    ],exports: [
+  imports: [
+    CommonModule,
+    ClientesRoutingModule,
+    FormsModule,
+    NgxMaskModule.forRoot(),
+    EmpresaModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule
+  ],exports: [
     ClientesFormComponent,
     ClientesFormReadComponent,
     ClientesListaComponent

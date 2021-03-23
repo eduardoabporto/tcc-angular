@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Empresa} from './empresa/empresa';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {TipoDespesa} from './tipo-despesa/TipoDespesa';
+import {empresaBusca} from './empresa/empresa-lista/empresaBusca';
+import {tipoDespesaBusca} from './tipo-despesa/tipo-despesa-lista/tipoDespesaBusca';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,15 @@ export class TipoDespesaService {
 
   atualizar(tipoDespesa: TipoDespesa): Observable<any> {
     return this.http.put<TipoDespesa>(`${this.apiURL}/${tipoDespesa.id}`, tipoDespesa);
+  }
+
+  buscar(nome: string): Observable<tipoDespesaBusca[]>{
+
+    const httpParams = new HttpParams()
+      .set('nome', nome);
+
+    const url = this.apiURL + '?' + httpParams.toString();
+    return this.http.get<any>(url);
   }
 
   getTipoDespesa(): Observable<TipoDespesa[]> {
