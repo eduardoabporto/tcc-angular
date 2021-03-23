@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Cliente} from '../../clientes/cliente';
 import {ClientesService} from '../../clientes.service';
-import {Despesa} from '../Despesa';
+import {OrdemServico} from '../OrdemServico';
+import {OrdemServicoService} from '../../ordem-servico.service';
 import {Projeto} from '../../projeto/Projeto';
 import {ProjetoService} from '../../projeto.service';
 import {Observable} from 'rxjs';
@@ -11,55 +12,52 @@ import {Empresa} from '../../empresa/empresa';
 import {AuthService} from '../../auth.service';
 import {Usuario} from '../../login/usuario';
 import {UsuarioService} from '../../usuario.service';
-import {DespesaService} from '../../despesa.service';
-import {TipoDespesa} from '../../tipo-despesa/TipoDespesa';
-import {TipoDespesaService} from '../../tipo-despesa.service';
+import * as moment from 'moment';
+
 
 @Component({
-  selector: 'app-despesa-form-read',
-  templateUrl: './despesa-form-read.component.html',
-  styleUrls: ['./despesa-form-read.component.css']
+  selector: 'app-ordem-servico-aprovacao-form',
+  templateUrl: './ordem-servico-form-aprovacao.component.html',
+  styleUrls: ['./ordem-servico-form-aprovacao.component.css']
 })
-export class DespesaFormReadComponent implements OnInit {
+export class OrdemServicoFormAprovacaoComponent implements OnInit {
 
   usuarioLogado: string;
 
   empresa: Empresa[] = [];
   clientes: Cliente[] = [];
   projetos: Projeto[] = [];
+  horaProjeto: Projeto[] = [];
   usuario: Usuario[] = [];
-  tipoDespesa: TipoDespesa[] = [];
-  despesaSelecionada: Despesa;
+  servico: OrdemServico;
   success: boolean = false;
   errors: String[];
   id: number;
-
 
   constructor(
     private authService: AuthService,
     private empresaService: EmpresaService,
     private clienteService: ClientesService,
-    private despesa: DespesaService,
+    private ordemService: OrdemServicoService,
     private projetoService: ProjetoService,
-    private tipoDespesaService: TipoDespesaService,
     private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
 
   ) {
-    this.despesaSelecionada = new Despesa();
+    this.servico = new OrdemServico();
     }
 
   ngOnInit(): void {
-    this.despesaSelecionada.userLog = this.authService.getUsuarioAutenticado();
+    this.servico.userLog = this.authService.getUsuarioAutenticado();
     this.usuarioLogado = this.authService.getUsuarioAutenticado();
     let params: Observable<Params> = this.activatedRoute.params;
     params.subscribe(urlParams => {
       this.id = urlParams['id']
       if (this.id) {
-        this.despesa
-          .getDespesaById(this.id)
-          .subscribe(response => this.despesaSelecionada = response,
-            errorResponse => this.despesaSelecionada = new Despesa());
+        this.ordemService
+          .getOrdemServicoById(this.id)
+          .subscribe(response => this.servico = response,
+            errorResponse => this.servico = new OrdemServico());
       } else {
         this.empresaService
           .getEmpresas()
@@ -67,24 +65,50 @@ export class DespesaFormReadComponent implements OnInit {
         this.clienteService
           .getClientes()
           .subscribe(response => this.clientes = response);
-        this.tipoDespesaService
-          .getTipoDespesa()
-          .subscribe(response => this.tipoDespesa = response);
       }
     });
   }
 
+  calcDif(){
+    let dif1 = moment(this.servico.horaFinal, 'HH:mm').diff(moment(this.servico.horaInicial, 'HH:mm'), 'minutes');
+    let dif2 = moment(this.servico.horaTrasl, 'HH:mm').diff(moment(this.servico.horaDesc, 'HH:mm'), 'minutes');
+    let dif3 = dif1 + dif2;
+    this.servico.horaTrab = moment('00:00', 'HH:mm').add(dif3, 'minutes').format('HH:mm');
+  }
+
   consultarProjeto(idCliente: number){
     this.projetoService
-      .getProjetoClienteById(this.despesaSelecionada.idCliente)
+      .getProjetoClienteById(this.servico.idCliente)
       .subscribe(response =>{ this.projetos = response});
   }
 
+  consultarHorasProjeto(idProjeto: number) {
+    console.log(idProjeto);
+    console.log(this.servico.idProjeto);
+    this.projetoService
+      .getHoraProjetoById(idProjeto)
+      .subscribe(response => {
+        this.projetos = response
+        console.log(this.projetos);
+      });
+
+    var qtdeDesc = this.projetos.map(function(item, indice: 0) {
+      return item.horaDesc
+    });
+    var qtdeTrasl = this.projetos.map(function(item, indice: 0) {
+      return item.horaTrasl
+    });
+
+    this.servico.horaDesc = qtdeDesc.toString();
+    this.servico.horaTrasl = qtdeTrasl.toString();
+    this.calcDif();
+  }
 
   onSubmit()  {
     if(this.id){
-      this.despesa
-        .atualizar(this.despesaSelecionada)
+      this.servico.aprovacao='Sim'
+      this.ordemService
+        .atualizar(this.servico)
         .subscribe(response => {
           this.success = true;
           this.errors = null;
@@ -92,12 +116,12 @@ export class DespesaFormReadComponent implements OnInit {
           this.errors = ['Erro ao atualizar o empresa.']
         })
     }else {
-      this.despesa
-        .salvar(this.despesaSelecionada)
+      this.ordemService
+        .salvar(this.servico)
         .subscribe(response => {
             this.success = true;
             this.errors = null;
-            this.despesaSelecionada = new Despesa();
+            this.servico = new OrdemServico();
           },
           errorResponse => {
             this.success = false;

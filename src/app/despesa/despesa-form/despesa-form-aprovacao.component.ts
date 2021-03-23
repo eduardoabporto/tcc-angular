@@ -39,7 +39,7 @@ export class DespesaFormAprovacaoComponent implements OnInit {
     private authService: AuthService,
     private empresaService: EmpresaService,
     private clienteService: ClientesService,
-    private depesa: DespesaService,
+    private despesa: DespesaService,
     private projetoService: ProjetoService,
     private tipoDespesaService: TipoDespesaService,
     private usuarioService: UsuarioService,
@@ -56,7 +56,7 @@ export class DespesaFormAprovacaoComponent implements OnInit {
     params.subscribe(urlParams => {
       this.id = urlParams['id']
       if (this.id) {
-        this.depesa
+        this.despesa
           .getDespesaById(this.id)
           .subscribe(response => this.despesaSelecionada = response,
             errorResponse => this.despesaSelecionada = new Despesa());
@@ -84,7 +84,7 @@ export class DespesaFormAprovacaoComponent implements OnInit {
   onSubmit()  {
     if(this.id){
       this.despesaSelecionada.aprovacao='Sim'
-      this.depesa
+      this.despesa
         .atualizar(this.despesaSelecionada)
         .subscribe(response => {
           this.success = true;
@@ -93,7 +93,7 @@ export class DespesaFormAprovacaoComponent implements OnInit {
           this.errors = ['Erro ao atualizar o empresa.']
         })
     }else {
-      this.depesa
+      this.despesa
         .salvar(this.despesaSelecionada)
         .subscribe(response => {
             this.success = true;

@@ -1,9 +1,9 @@
-<h1 class="mt-4">Despesas</h1>
+<h1 class="mt-4">Ordem Serviço</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrum-bitem active">Aprovação</li>
+  <li class="breadcrum-bitem active">Aprovacao</li>
 </ol>
 <div class="container">
-  <form #FormListaAprov="ngForm" (submit)="consultar()">
+  <form #consultaForm="ngForm" (submit)="consultar()">
     <div class="row">
       <div class="col-md-6">
         <label for="inputNome">Nome Cliente:</label>
@@ -30,22 +30,18 @@
         <tr>
           <th>ID</th>
           <th>Cliente</th>
-          <th>Projeto</th>
-          <th>Despesa</th>
+          <th>Assunto</th>
           <th>Data</th>
-          <th>Aprovado</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let despesa of despesa | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }" >
-          <td>{{ despesa.id }} </td>
-          <td>{{ despesa.cliente.nome }} </td>
-          <td>{{ despesa.projeto.nome }} </td>
-          <td>{{ despesa.tipoDespesa.nome }} </td>
-          <td>{{ despesa.data | date: 'dd/MM/yyyy'}} </td>
-          <td>{{ despesa.aprovacao}}</td>
+        <tr *ngFor="let ordemServico of ordemServicos | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let id = index" >
+          <td>{{ ordemServico.id }} </td>
+          <td>{{ ordemServico.cliente.nome }} </td>
+          <td>{{ ordemServico.assunto }} </td>
+          <td>{{ ordemServico.data | date: 'dd/MM/yyyy'}} </td>
           <td>
-            <button class="btn btn-info"  routerLink="/despesa/form/aprovacao/{{ despesa.id }}">
+            <button class="btn btn-info"  routerLink="/ordem-servico/form/aprovacao/{{ ordemServico.id }}">
               <i class="fas fa-search"></i>
             </button>
           </td>
@@ -63,11 +59,11 @@
         <div class="modal-header">
           <h4>Confirmação</h4>
         </div>
-        <div class="modal-body" *ngIf="despesaSelecionado">
-          Confirma a deleção do(a) Despesa {{ despesaSelecionado.id }}?
+        <div class="modal-body" *ngIf="ordemServicoSelecionado">
+          Confirma a deleção do(a) Ordem de Servico {{ ordemServicoSelecionado.id }}?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletarDespesa()" data-dismiss="modal">Confirma</button>
+          <button class="btn btn-success" (click)="deletarOrdemServico()" data-dismiss="modal">Confirma</button>
           <button class="btn btn-danger" data-dismiss="modal">Cancela</button>
         </div>
       </div>

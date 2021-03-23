@@ -21,6 +21,7 @@ export class OrdemServico{
   empresa: Empresa;
   cliente: Cliente;
   projeto: Projeto;
+  aprovacao: string;
 
 }
 

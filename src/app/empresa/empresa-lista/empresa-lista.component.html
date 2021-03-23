@@ -6,7 +6,7 @@
   <form #consultaForm="ngForm" (submit)="consultar()">
     <div class="row">
       <div class="col-md-6">
-        <label for="inputNome">Nome Cliente:</label>
+        <label for="inputNome">Nome Empresa:</label>
         <input type="text" [(ngModel)]="nome"
                name="nome" class="form-control"
                id="inputNome">
@@ -35,7 +35,7 @@
         {{ mensagemErro }}
       </div>
     </div>
-    <div class="col-md-12">
+    <div>
       <table class="table table-condensed table-hover">
         <thead>
         <tr>
@@ -67,6 +67,7 @@
           </td>
         </tr>
         </tbody>
+        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
       </table>
     </div>
   </div>

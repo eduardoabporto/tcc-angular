@@ -47,7 +47,7 @@
           </thead>
           <tbody>
           <tr>
-          <tr *ngFor="let tipoDespesa of tipoDespesa | filter:nome | paginate: { itemsPerPage: 5, currentPage: paginaAtual }">
+          <tr *ngFor="let tipoDespesa of tipoDespesa | filter:nome | paginate: { itemsPerPage: 3, currentPage: paginaAtual }">
             <td>{{ tipoDespesa.id }}</td>
             <td>{{ tipoDespesa.nome }}</td>
             <td>
@@ -64,6 +64,7 @@
             </td>
           </tr>
           </tbody>
+          <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
         </table>
       </div>
     </div>

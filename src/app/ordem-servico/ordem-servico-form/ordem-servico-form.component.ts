@@ -25,6 +25,7 @@ export class OrdemServicoFormComponent implements OnInit {
 
   usuarioLogado: string;
 
+  nome: string;
   empresa: Empresa[] = [];
   clientes: Cliente[] = [];
   projetos: Projeto[] = [];

@@ -10,9 +10,15 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
 import {OrdemServicoFormReadComponent} from './ordem-servico-form/ordem-servico-form-read.component';
+import {OrdemServicoAprovacaoComponent} from './ordem-servico-lista/ordem-servico-aprovacao.component';
+import {OrdemServicoFormAprovacaoComponent} from './ordem-servico-form/ordem-servico-form-aprovacao.component';
 
 @NgModule({
-  declarations: [OrdemServicoFormComponent, OrdemServicoFormReadComponent, OrdemServicoListaComponent],
+  declarations: [OrdemServicoFormComponent,
+    OrdemServicoFormReadComponent,
+    OrdemServicoFormAprovacaoComponent,
+    OrdemServicoListaComponent,
+    OrdemServicoAprovacaoComponent],
   imports: [
     CommonModule,
     OrdemServicoRoutingModule,
@@ -22,6 +28,6 @@ import {OrdemServicoFormReadComponent} from './ordem-servico-form/ordem-servico-
     NgxPaginationModule,
     OrderModule,
     ReactiveFormsModule
-  ], exports: [OrdemServicoFormComponent, OrdemServicoFormReadComponent, OrdemServicoListaComponent]
+  ], exports: [OrdemServicoFormComponent, OrdemServicoFormReadComponent, OrdemServicoListaComponent, OrdemServicoAprovacaoComponent]
 })
 export class OrdemServicoModule { }
