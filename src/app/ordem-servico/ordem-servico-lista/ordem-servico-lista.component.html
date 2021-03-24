@@ -20,7 +20,7 @@
                 class="btn btn-warning ml-1">
           <i class="fa fa-plus"></i> Novo
         </button>
-        <button (click)="imprimeRelatorio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 5px">
+        <button (click)="imprimeRelatorioParam()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 5px">
           PDF
         </button>
       </div>
@@ -55,6 +55,9 @@
             <button class="btn btn-danger" (click)="preparaDelecao(ordemServico)" data-toggle="modal"
                     data-target="#modalDelecao">
               <i class="fa fa-trash"></i>
+            </button>
+            <button class="btn btn-success" (click)="imprimeFormOSParam(ordemServico.id)" data-toggle="modal" data-target="#exampleModal" >
+              <i class="fas fa-print"></i>
             </button>
           </td>
         </tr>

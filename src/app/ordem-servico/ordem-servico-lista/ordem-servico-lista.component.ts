@@ -77,6 +77,15 @@ export class OrdemServicoListaComponent implements OnInit {
     return this.ordemServicoService.downloadPdfRelatorio();
   }
 
+
+  imprimeRelatorioParam(){
+    this.ordemServicoService.downloadPdfRelatorioParam(this.usuarioLogado);
+  }
+
+  imprimeFormOSParam(idOS){
+    this.ordemServicoService.downloadPdfFormOSParam(idOS);
+  }
+
   filterItemsOfType(){
     return this.ordemServicos.filter(x => x.userLog == this.usuarioLogado);
   }

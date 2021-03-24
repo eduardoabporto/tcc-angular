@@ -49,6 +49,20 @@ export class OrdemServicoService {
       document.querySelector('iframe').src = data;
     })
   }
+
+  downloadPdfRelatorioParam(userLog: string){
+    console.log(userLog);
+    return this.http.post(this.apiURL + '/relatorio/', userLog , {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
+
+  downloadPdfFormOSParam(idOS: number){
+    console.log(idOS);
+    return this.http.post(this.apiURL + '/relatorio/os', idOS , {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }
 
 
