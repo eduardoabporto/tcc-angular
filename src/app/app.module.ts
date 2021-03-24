@@ -33,13 +33,16 @@ import {TipoDespesaModule} from './tipo-despesa/tipo-despesa.module';
 import {TipoDespesaService} from './tipo-despesa.service';
 import {DespesaModule} from './despesa/despesa.module';
 import {DespesaService} from './despesa.service';
+import {ChartsModule} from 'ng2-charts';
+import { BarChartComponent } from './componente/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +62,7 @@ import {DespesaService} from './despesa.service';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     OrderModule,
+    ChartsModule
   ],
   providers: [
     ClientesService,

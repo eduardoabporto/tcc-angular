@@ -78,6 +78,14 @@ export class DespesaListaComponent implements OnInit {
     return this.despesaService.downloadPdfRelatorio();
   }
 
+  imprimeRelatorioParam(){
+    this.despesaService.downloadPdfRelatorioParam(this.usuarioLogado);
+  }
+
+  imprimeFormDespesasParam(idDespesa){
+    this.despesaService.downloadPdfFormDespesasParam(idDespesa);
+  }
+
   filterItemsOfType(){
     return this.despesa.filter(x => x.userLog == this.usuarioLogado);
   }

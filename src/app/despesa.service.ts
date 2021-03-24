@@ -48,6 +48,20 @@ export class DespesaService {
       document.querySelector('iframe').src = data;
     })
   }
+
+  downloadPdfRelatorioParam(userLog: string){
+    console.log(userLog);
+    return this.http.post(this.apiURL + '/relatorio/', userLog , {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
+
+  downloadPdfFormDespesasParam(idDespesas: number){
+    console.log(idDespesas);
+    return this.http.post(this.apiURL + '/relatorio/despesas', idDespesas , {responseType : 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    })
+  }
 }
 
 
