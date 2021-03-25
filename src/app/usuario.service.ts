@@ -46,4 +46,27 @@ export class UsuarioService {
     })
   }
 
+  carregarGrafico1() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/1');
+  }
+
+  carregarGrafico2() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/2');
+  }
+
+  carregarGrafico3() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/3');
+  }
+
+  carregarGrafico4() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/4');
+  }
+
+  carregarGrafico5() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/5');
+  }
+
+  carregarGrafico6() : Observable<any>{
+    return this.http.get(this.apiURL + '/grafico/6');
+  }
 }

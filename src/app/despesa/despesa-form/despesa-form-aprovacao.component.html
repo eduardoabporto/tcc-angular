@@ -74,10 +74,10 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Valor Hora:</label>
-          <input  readonly class="form-control"
-                 [(ngModel)]="despesaSelecionada.valorDespesa" type="number"
-                 name="valor" id="inputValorHora">
+          <label>Valor Despesa:</label>
+          <input currencyMask  readonly class="form-control"
+                 [(ngModel)]="despesaSelecionada.valorDespesa" type="text"
+                 name="valor" id="inputValorHora" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
         </div>
       </div>
 

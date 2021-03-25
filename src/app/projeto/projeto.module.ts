@@ -10,6 +10,7 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrderModule} from 'ngx-order-pipe';
 import {ProjetoFormReadComponent} from './projeto-form/projeto-form-read.component';
+import {NgxCurrencyModule} from 'ngx-currency';
 
 @NgModule({
   declarations: [ProjetoFormComponent, ProjetoFormReadComponent, ProjetoListaComponent],
@@ -20,7 +21,8 @@ import {ProjetoFormReadComponent} from './projeto-form/projeto-form-read.compone
     FormsModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    OrderModule
+    OrderModule,
+    NgxCurrencyModule
   ], exports: [ProjetoFormComponent, ProjetoFormReadComponent, ProjetoListaComponent]
 })
 export class ProjetoModule { }

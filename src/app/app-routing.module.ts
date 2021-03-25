@@ -6,6 +6,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './auth.guard';
 import { BarChartComponent } from './componente/bar-chart/bar-chart.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [

@@ -35,6 +35,7 @@ import {DespesaModule} from './despesa/despesa.module';
 import {DespesaService} from './despesa.service';
 import {ChartsModule} from 'ng2-charts';
 import { BarChartComponent } from './componente/bar-chart/bar-chart.component';
+import {NgxCurrencyModule} from 'ngx-currency';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { BarChartComponent } from './componente/bar-chart/bar-chart.component';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     OrderModule,
-    ChartsModule
+    ChartsModule,
+    NgxCurrencyModule
   ],
   providers: [
     ClientesService,
